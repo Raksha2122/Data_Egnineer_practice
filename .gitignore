@@ -1,0 +1,12 @@
+﻿# Virtual environment
+.venv/
+# Python cache
+__pycache__/
+*.pyc
+# Environment secrets
+.env
+# Windows / editor junk
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
