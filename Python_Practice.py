@@ -1,4 +1,6 @@
 #Printing
+from typing import Dict
+
 print("Raksha")
 print("Raksha", 1)
 print("Raksha", 2,"Ansh")
@@ -118,4 +120,205 @@ for i in num:
     if i % 2 == 1:
         odds.append(i*i)
 print(odds)
+
+#Functions
+
+def greet():
+    print("Hello World")
+
+greet()
+greet()
+
+#Inputs parameters and arguments
+
+def greet(name):
+    print("Hello", name,"!")
+    print(f"Hello {name}!")
+
+greet("Raksha")
+greet("Ansh")
+
+def add(a,b):
+    print(a+b)
+
+add(50,5)
+
+def describe(animal,sound):
+    print(f"A {animal} says {sound}")
+
+describe("Dog","Woof")
+
+#Returning values
+#Returning hands a value back to whoever called the function, so you can store it or reuse it
+
+def add(a,b):
+    return a+b
+
+result = add(5,5)   # result holds the value of that is returned as 10 here
+print(result*10)# 100 (we resued the returned value )
+
+def add_print(a,b):
+    print(a+b)
+
+x = add_print(5,5)
+print(x)  #return null as we are not returing anything
+
+def is_even(n):
+    if n % 2 == 0:
+        return True
+    return False
+
+x= is_even(5)
+print(x)
+
+#Positional arguments
+
+def power(base, exponent):
+    return base ** exponent
+
+power(2,3) # All positional
+power(base=2,exponent=3) # all keywords
+power(2,exponent = 3) #positional then keywords
+# power(base = 2,3) # Error = positional argument follows keyword argument
+
+#Default arguments
+#Give a parameter a fallback value so caller can skip it.
+
+def greet(name , greeting = "Hello"):
+    return f"{greeting} {name}!"
+
+greet("Raksha") #Hello Raksha (used defualt one )
+greet("Ansh","Hi") # Hi Ansh (overode it )
+
+def bad(item,bucket=[]):
+    bucket.append(item)
+    return bucket
+
+bad(1)
+bad(2)
+
+def good(item,bucket = None):
+    if bucket is None:
+        bucket = []
+    bucket.append(item)
+    return bucket
+
+y =good(1)
+y = good(2)
+print(y)
+
+#*args — Any number of positional arugment
+
+#Sometimes you dont know how many values will come in.
+# *args scoops all the extra positional arguments into a tuple
+
+def total(*args):
+    return sum(args)
+
+x=total(1,2,3,4,5,6,7,8,9,10)
+print(x)
+x=total()
+print(x)
+x=total(1,2,3)
+print(x)
+
+#The name args is just convention --the * is what does the work
+#( collect the rest into a tuple)
+
+def total(*alll):
+    return sum(alll)
+
+def describe(**kwargs):
+    return kwargs
+
+x=describe(name="Raksha",age=23)
+print(x)
+# It lets a function accepts many optional setting without listing each one.
+
+# Order is strict
+#regular --> default --> *args --> **kwargs
+
+def process(label,factor,*args,**kwargs):
+    return {
+        "label":label,
+        "factor":factor,
+        "extra_numbers":args,  #tuple
+        "options":kwargs,   #dict
+    }
+
+x=process("run",2,3,4,5,6,mode="fast",debug="on")
+print(x)
+
+#keyword only arguments anything after a base * must be passed by name.
+
+#Type hints (params + return )
+
+def add(a,b) -> int:
+    return a+b
+x=add(1,2)
+print(x)
+
+def summaries(title:str,*value:float,unit:str ="USD",**meta:dict)->dict:
+    return {
+        "title":title,
+        "sum":sum(value),
+        "unit":unit,
+        "meta":meta,
+    }
+
+X=summaries("Honey", 4,5,6,mode="fast",debug="on")
+print(X)
+
+#Docstring
+def add(a,b):
+    """String fucntion testing - Function used for addition """
+    return a+b
+
+x= help(add)
+print(x)
+x=add.__doc__
+print(x)
+
+#Function are values (first class object )
+#In python a function is itself a value you can store, pass around and return.
+
+def shout(text):
+    return text.upper()
+
+f = shout #It refers to f = shout("hi")
+print(f("hi"))  # HI
+
+#Passing a function into function
+def apply(func,value):
+    return func(value)
+
+x=apply(shout,"Hello")
+print(x)
+
+#Lambda
+
+square = lambda x:x*x
+x=square(5)
+print(x)
+
+even =lambda x:x%2==0
+x=even(5)
+print(x)
+
+y=sorted(["aabbbbb","bbb","c"], key = lambda x: len(x))
+print(y)
+
+#Map
+my_list = [1,2,3,4,5,6,7]
+
+def square(x):
+    return x*x
+result = list(map(square,my_list))
+print(result)
+
+result = list(map(lambda x:x*x,my_list))
+print(result)
+
+result = list(filter(lambda x:x%2==0,my_list))
+print(result)
 
