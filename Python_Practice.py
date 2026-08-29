@@ -1,4 +1,6 @@
 #Printing
+from typing import Dict
+
 print("Raksha")
 print("Raksha", 1)
 print("Raksha", 2,"Ansh")
@@ -248,3 +250,75 @@ x=process("run",2,3,4,5,6,mode="fast",debug="on")
 print(x)
 
 #keyword only arguments anything after a base * must be passed by name.
+
+#Type hints (params + return )
+
+def add(a,b) -> int:
+    return a+b
+x=add(1,2)
+print(x)
+
+def summaries(title:str,*value:float,unit:str ="USD",**meta:dict)->dict:
+    return {
+        "title":title,
+        "sum":sum(value),
+        "unit":unit,
+        "meta":meta,
+    }
+
+X=summaries("Honey", 4,5,6,mode="fast",debug="on")
+print(X)
+
+#Docstring
+def add(a,b):
+    """String fucntion testing - Function used for addition """
+    return a+b
+
+x= help(add)
+print(x)
+x=add.__doc__
+print(x)
+
+#Function are values (first class object )
+#In python a function is itself a value you can store, pass around and return.
+
+def shout(text):
+    return text.upper()
+
+f = shout #It refers to f = shout("hi")
+print(f("hi"))  # HI
+
+#Passing a function into function
+def apply(func,value):
+    return func(value)
+
+x=apply(shout,"Hello")
+print(x)
+
+#Lambda
+
+square = lambda x:x*x
+x=square(5)
+print(x)
+
+even =lambda x:x%2==0
+x=even(5)
+print(x)
+
+y=sorted(["aabbbbb","bbb","c"], key = lambda x: len(x))
+print(y)
+
+#Map
+my_list = [1,2,3,4,5,6,7]
+
+def square(x):
+    return x*x
+result = list(map(square,my_list))
+print(result)
+
+result = list(map(lambda x:x*x,my_list))
+print(result)
+
+result = list(filter(lambda x:x%2==0,my_list))
+print(result)
+
