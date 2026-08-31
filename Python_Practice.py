@@ -322,3 +322,43 @@ print(result)
 result = list(filter(lambda x:x%2==0,my_list))
 print(result)
 
+#OOP
+
+class Dog:
+    def __init__(self , name , age ):
+        self.name = name
+        self.age = age
+
+rex = Dog("rex",1)  #object
+bella = Dog("bella",4)
+
+print(rex.name) #calling a function with object
+print(rex.age)
+
+# __init__
+baby = Dog("Baby",3)
+print(f"My dog name is {baby.name} and my dog age is {baby.age}")
+
+# changing a attributes
+rex.age = 5
+print(rex.age)
+
+# Methods
+
+class Dog:
+    def __init__(self , name , age ):
+        self.name = name
+        self.age = age
+
+    def bark(self):        #a method that reads data
+        return f"My dog name is {self.name}"
+
+    def hav_birthday(self):   #method that changes age/ data
+        self.age = self.age +1
+
+Rex = Dog("Rex",5)
+x = Rex.bark()
+print(x)
+
+Rex.hav_birthday()
+print(Rex.age)
