@@ -356,9 +356,18 @@ class Dog:
     def hav_birthday(self):   #method that changes age/ data
         self.age = self.age +1
 
+    @property
+    def human_year(self):
+        return self.age*7
+
+rex = Dog("rex",1)
+print(rex.human_year)   #No parentheses even though its a method
+
 Rex = Dog("Rex",5)
 x = Rex.bark()
 print(x)
 
 Rex.hav_birthday()
 print(Rex.age)
+
+#Dunder method -- Python special hooks
