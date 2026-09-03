@@ -122,3 +122,5 @@ Select Avg(Salary) from Employees;
 Select Department, Avg(Salary) as Avg_salary from Employees
 group by Department
 having Department = 'HR';
+
+----------------------------------------------------------------------
