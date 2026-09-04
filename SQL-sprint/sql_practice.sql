@@ -123,4 +123,15 @@ Select Department, Avg(Salary) as Avg_salary from Employees
 group by Department
 having Department = 'HR';
 
-----------------------------------------------------------------------
+--Inner join
+--Left join
+--Right join
+--Full Outer join  = Left join + Union + Right join
+--Cross Join = Cartsion product
+Select * from Department cross join projects
+
+--Self Join
+
+
+
+
