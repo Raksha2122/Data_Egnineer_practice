@@ -131,7 +131,7 @@ having Department = 'HR';
 Select * from Department cross join projects
 
 --Self Join
-
+--
 
 
 

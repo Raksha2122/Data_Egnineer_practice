@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/python-sprint.iml" filepath="$PROJECT_DIR$/.idea/python-sprint.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/job-switch-data-engineer.iml" filepath="$PROJECT_DIR$/.idea/job-switch-data-engineer.iml" />
     </modules>
   </component>
 </project>
