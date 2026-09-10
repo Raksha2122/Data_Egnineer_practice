@@ -130,8 +130,70 @@ having Department = 'HR';
 --Cross Join = Cartsion product
 Select * from Department cross join projects
 
---Self Join
---
+USE Tutetubedb;
+
+# Give the full name, salary and salary percentage
+Select * from Employees;
+
+Select CONCAT(FirstName, ' ', LastName) AS FullName, Salary,
+round((Salary*100/ (Select max(salary) from Employees) ),2) as Salary_pct
+from Employees;
+
+# Print all the Engineers
+Select * from Employees;
+Select * from Department;
+
+Select CONCAT(FirstName, ' ', LastName) AS FullName from Employees
+Where Department in (Select Departmentname from Department where Departmentname = 'Engineering');
+
+#Find employees whose salary is above the average salary:
+Select CONCAT(FirstName, ' ', LastName) AS FullName from Employees Where Salary > ( Select Avg(Salary) from Employees ) ;
+
+#List employees who belong to departments present in the Department table:
+Select CONCAT(FirstName, ' ', LastName) AS FullName from Employees where Department in ( Select DepartmentName from Department ) ;
+
+#Which employees in the Employees table are also listed in the Department table (via the foreign key EmpID)?
+Select CONCAT(FirstName, ' ', LastName) AS FullName from Employees Where exists ( Select 1 from Department D JOIN Employees E ON D.EmpID = e.Employee_ID);
+
+SELECT Department, Avg_Salary
+FROM (
+    SELECT Department, AVG(Salary) AS Avg_Salary
+    FROM Employees
+    GROUP BY Department
+) AS DeptAvg
+WHERE Avg_Salary > 50000;
+
+SELECT *
+FROM Employees
+WHERE Department NOT IN ('Engineering');
+
+uSE TUTETUBEDB;
+
+SELECT FirstName,LastName,Salary FROM Employees WHERE Salary>ALL(SELECT Salary FROM Employees
+WHERE Department='HR');
+
+SELECT FirstName,LastName,Salary FROM Employees
+WHERE Salary>ANY (SELECT Salary FROM Employees
+WHERE Department='HR');
+
+# Highest-paid employee per department
+
+Select E1.Employee_ID,
+       concat(FirstName,' ',Lastname) as Fullname,
+       Department,
+       Salary
+       from Employees E1
+       Where Salary = ( Select Max(E2.Salary) from Employees E2 where E1.Department = E2.Department);
+
+# Employees who have the same salary as someone in another department
+SELECT *
+FROM Employees E
+WHERE EXISTS (
+    SELECT 1
+    FROM Employees E2
+    WHERE E2.Salary = E.Salary
+      AND E2.Department <> E.Department
+);
 
 
 
