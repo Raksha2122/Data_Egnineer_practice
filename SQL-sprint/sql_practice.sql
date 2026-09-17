@@ -195,5 +195,56 @@ WHERE EXISTS (
       AND E2.Department <> E.Department
 );
 
+#Employees earning above their department average
+use tutetubedb;
+
+UPDATE Employees
+SET Salary = 100000
+WHERE Employee_ID = 102;
+
+SELECT *
+FROM Employees
+WHERE Department = 'Engineering'
+AND Salary > (
+    SELECT AVG(Salary)
+    FROM Employees
+    WHERE Department = 'Engineering'
+);
+
+# CTE
+
+WITH High_Salary as (
+ Select * from Employees where Salary > 50000
+)
+Select * from High_Salary Where Firstname like 'A%';
+
+# Recursive CTE
+#The Question:
+#Write a query using a Recursive CTE to generate a month-by-month timeline for every project in the Projects table.
+#The output should return the ProjectName and a generated column called ProjectMonth that lists the first day of every
+#month the project is active (spanning from its StartDate to its EndDate).
+
+WITH RECURSIVE ProjectTimeline AS (
+    -- 1. ANCHOR MEMBER: Get the very first month for each project
+    SELECT
+        ProjectName,
+        CAST(DATE_FORMAT(StartDate, '%Y-%m-01') AS DATE) AS ProjectMonth,
+        EndDate
+    FROM Projects
+
+    UNION ALL
+
+    -- 2. RECURSIVE MEMBER: Add one month to the previous row
+    SELECT
+        ProjectName,
+        DATE_ADD(ProjectMonth, INTERVAL 1 MONTH),
+        EndDate
+    FROM ProjectTimeline
+    WHERE DATE_ADD(ProjectMonth, INTERVAL 1 MONTH) <= EndDate
+)
+-- 3. FINAL OUTPUT
+SELECT ProjectName, ProjectMonth
+FROM ProjectTimeline
+ORDER BY ProjectName, ProjectMonth;
 
 
