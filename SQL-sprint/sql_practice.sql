@@ -247,4 +247,39 @@ SELECT ProjectName, ProjectMonth
 FROM ProjectTimeline
 ORDER BY ProjectName, ProjectMonth;
 
+--Write a query to find the names and salaries of all employees who earn strictly less than the overall average salary of the entire company.
+Select Employeename, Salary from Employee where
+Salary < (Select Avg(Salary) from Employee);
 
+--Without using any JOIN clauses, write a query to find the names of all employees who work in either the 'Data Engineering' or 'Software Development'
+#departments. (Hint: Filter the Employee table based on a subquery that selects IDs from the Department table).
+Select Employeename from Employee where Departmentid in (Select Departmentid from Department where Departmentname in( 'Data Engineering' , 'Software Development'))
+
+--The HR team wants to identify top earners relative to their peers. Write a query to find the employees whose salary is higher than the average salary
+--of their own specific department. (Hint: The inner query needs to reference the DepartmentID of the outer query).
+Select E.Employeename, E.Salary,E.Departmentid from Employee E where Salary > ( Select Avg(E1.Salary) from Employee E1 WHERE E1.Departmentid = E.Departmentid)
+
+--Create a report that displays every employee's EmployeeName, their Salary, and a third column called Department_Max_Salary
+--that shows the highest salary available in that employee's department.
+
+Select E.Employeename, E.Salary,D.Departmentname, (Select MAX(E1.Salary) from Employee E1 WHERE E1.Departmentid = E.Departmentid) as Department_Max_Salary from Employee E
+INNER JOIN Department D on E.Departmentid = D.Departmentid
+
+--Create a CTE that calculates the total number of employees in each department. Then, write a main query that selects from this CTE to display
+--only the Departmentid and employee count for departments that have 2 or more employees.
+
+WITH NOEMP AS (
+Select Departmentid,count(Departmentid) as count from Employee group by Departmentid
+)
+Select * from NOEMP WHERE count >=2;
+
+--Use a CTE to calculate the average performance score for each specific Employeeid.
+--Then, write a main query that joins this CTE with the Employee and Department tables to display the EmployeeName, Departmentname, and their calculated Average_Score.
+WITH avg_performance as (
+Select Employeeid,Avg(Score) AS avg_score from Performance GROUP BY Employeeid
+)
+Select E.Employeename,D.Departmentname,P.avg_score from Employee E inner join Department D
+on E.Departmentid = D.departmentid
+Inner join avg_performance P
+on E.Employeeid = P.Employeeid
+ORDER BY Departmentname
